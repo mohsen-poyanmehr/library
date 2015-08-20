@@ -1,0 +1,29 @@
+<h1><%= @book.title %></h1>
+#####################################
+	<%= paginate @comments %>
+####################################
+<% @comments.each do |comment| %>
+	<h4><%= comment.author %></h4>
+	<h6><%= comment.content %></h6>
+	<h5><%= comment.book_id %></h5>
+<% end %>
+
+
+<%= form_tag "/books/#{@book.id}", method: "patch" do %>
+  <input type="text" name="title" value="<%= @book.title %>" />
+  <p><%= @book.errors[:title].first %></p>
+  <input type="submit" value="Modifier le livre" />
+<% end %>
+
+<%= form_tag "/books/#{@book.id}", method: "delete" do %>
+  <input type="submit" value="Supprimer le livre" />
+<% end %>
+
+<%= form_tag "/books/#{@book.id}", method: "post" do %>
+	content : <input type="text" name="content" />
+	author  : <input type="text" name="author" />
+	book_title : <%= @book.title %>
+	<input type="submit" value="write your remark" />
+<% end %>
+
+<p><a href="/books">Retourner à l’index</a></p>
